@@ -81,7 +81,7 @@ Commands:
   deploy [<flags>]
     deploy service
 
-  scale --tasks=TASKS [<flags>]
+  scale [<flags>]
     scale service. equivalent to deploy --skip-task-definition
     --no-update-service
 
@@ -532,6 +532,8 @@ Flags:
   --id=""                task ID
   --output=table         output format (table|json|tsv)
   --find                 find a task from tasks list and dump it as JSON
+  --stop                 stop a task
+  --force                stop a task without confirmation prompt
 ```
 
 When `--find` option is set, you can select a task in a list of tasks and show the task as JSON.
@@ -541,6 +543,8 @@ When `--find` option is set, you can select a task in a list of tasks and show t
 ```yaml
 filter_command: peco
 ```
+
+When `--stop` option is set, you can select a task in a list of tasks and stop the task.
 
 ### exec
 
@@ -560,6 +564,15 @@ If `--id` is not set, the command shows a list of tasks to select a task to exec
 `filter_command` in config.yaml works ths same as tasks command.
 
 See also the official document [Using Amazon ECS Exec for debugging](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html).
+
+### suspend / resume application auto scaling
+
+`ecspresso deploy` and `scale` can suspend / resume application auto scaling.
+
+`--suspend-auto-scaling` sets suspended state true.
+`--resume-auto-scaling` sets suspended state false.
+
+When you want to change the suspended state simply, try `ecspresso scale --suspend-auto-scaling` or `ecspresso scale --resume-auto-scaling`. That operation will change suspended state only.
 
 # Plugins
 
